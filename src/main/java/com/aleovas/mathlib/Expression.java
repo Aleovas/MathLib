@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 
 import static com.aleovas.mathlib.MiscFunctions.*;
 
-
+//Provides rudimentary support for mathematical expressions
+//Methods here are analogous to the ones in the Polynomial class, so refer to the method description there.
 public class Expression {
     ArrayList<FunctionGroup> groups=new ArrayList<>();
     public int id;
@@ -124,7 +125,6 @@ public class Expression {
         for(FunctionGroup f:groups)if(!f.isPolynomial())return false;
         return true;
     }
-
 
     public Expression add(Expression e){
         Expression temp=copy();

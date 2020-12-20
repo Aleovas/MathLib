@@ -12,8 +12,10 @@ public class Function implements Comparable<Function>{
     public int compareTo(Function function) {
         if(function==null)return 1;else return -Double.compare(this.exp,function.exp);
     }
-
+    //Currently provides preliminary support for single level trigonometric functions and logarithims, as well as polynomials raised to a specific exponent
+    //Future updates might provide further functions and the possibility for nesting functions.
     public enum Functions {pol,sin,cos,tan,log,pow,exp,abs,Int,sec,ctn,csc}
+    //Each "function" is a layer of abstraction containing a polynomial, function type, and exponent
     public Functions type;
     public Polynomial polynomial;
     public Polynomial expPolynomial;
@@ -21,6 +23,8 @@ public class Function implements Comparable<Function>{
     public int id;
     public static int functionID;
     int clean=0;
+
+    //Patterns used for matching the various part of a "function"
     Pattern regPolynomial=Pattern.compile("(([A-Za-z0-9\\.\\+\\-\\^]+)(?=\\)))|(^(?!(sin|cos|log|tan|int|abs|sec|ctn|csc))([A-Za-z0-9\\.\\+\\-\\^]+)$)",Pattern.CASE_INSENSITIVE);
     Pattern regExp=Pattern.compile("(?<=(sin|cos|tan|log|int|abs|sec|ctn|csc|\\))\\^)(\\+|\\-)?(([0-9]+(\\.[0-9]+)?)|(\\.[0-9]+))",Pattern.CASE_INSENSITIVE);
     Pattern regType=Pattern.compile("(sin|cos|tan|log|int|abs|sec|ctn|csc)",Pattern.CASE_INSENSITIVE);
@@ -147,6 +151,8 @@ public class Function implements Comparable<Function>{
         return new Function(polynomial.copy(),exp,type);
     }
     public void powToPol(){
+        //If a polynomial is raised to a positive integer exponent, the polynomial is multiplied
+        //by itself exp number of times to get rid of the exponent
         if(type== pow&&isInteger(exp)&&exp>0){
             Polynomial temp=onePolynomial;
             boolean negative=false;
@@ -159,7 +165,8 @@ public class Function implements Comparable<Function>{
     public void polToPow(){
         if(type== pol){
             ArrayList<Polynomial> temp=polynomial.fac();
-            //todo implement this
+            //TODO implement this
+            //The plan is for this to be the opposite of the powToPol method
         }
         clean();
     }
@@ -167,11 +174,14 @@ public class Function implements Comparable<Function>{
         return exp==function.exp&&type==function.type&&polynomial.equals(function.polynomial);
     }
     public boolean equalsWOExp(Function function){
+        //If the type and contained polynomial are the same, then they can be consolidated if in the same FunctionGroup
         return type==function.type&&polynomial.equals(function.polynomial);
     }
     public boolean match(Function function){
+        //Returns true if the contained polynomial of both functions are the same
         return polynomial.equals(function.polynomial);
     }
+    //Similar to the substitution methods found in the Term class
     public Function substitute(String sym, double d){
         Function temp=copy();
         temp.polynomial=temp.polynomial.subtitute(sym, d);

@@ -9,11 +9,14 @@ import static com.aleovas.mathlib.Function.Functions.*;
 import static com.aleovas.mathlib.MiscFunctions.*;
 
 //A class describing an abstraction of multiple "functions" multiplied together.
+//Methods here are analogous to the ones in the Term class so refer to the documentation there.
 public class FunctionGroup implements Comparable<FunctionGroup>{
     public ArrayList<Function> functions = new ArrayList<>();
     public double coef;
     public int id;
     static int fgID;
+    //Currently provides preliminary support for single level trigonometric functions and logarithims
+    //Future updates might provide further functions and the possibility for nesting functions.
     Pattern regFunction = Pattern.compile("((\\/?(sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^[0-9\\.\\+\\-]+)?\\([a-zA-Z0-9\\^\\-\\+\\.]*\\)))|(\\/?\\([a-zA-Z0-9\\^\\-\\+\\.]*\\)(\\^[0-9\\.\\+\\-]+)?)|\\/[a-zA-Z0-9\\.]+(\\^[0-9\\.\\+\\-]+)?");
     Pattern regCoef = Pattern.compile("\\^?([0-9\\.\\-\\+]+)(?=(sin|cos|tan|log|int|abs|sec|ctn|csc|\\/|\\())");
 

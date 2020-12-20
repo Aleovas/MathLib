@@ -2,12 +2,14 @@ package com.aleovas.mathlib;
 
 import static com.aleovas.mathlib.MiscFunctions.*;
 
+//A simple data container containing exponents and symbols for variables
 public class Var implements Comparable<Var>{
     double exp;
     String sym;
-    int id;
-    static int varID;
+    int id; //id is used for comparison during manipulation of Terms to prevent recursion
+    private static int varID; //varID is incremented every time a new variable is created to keep track of variables
     public Var(String s){
+        //Parses a string (usually passed from the Term class) to get the symbol and exponent
         String temp = "";
         if(s.contains("^")){
             temp=s.substring(s.indexOf("^"));
@@ -34,6 +36,7 @@ public class Var implements Comparable<Var>{
     }
     @Override
     public int compareTo(Var var) {
+        //Comparison is used for sorting, variables are sorted in alphabetical order
         if(var==null)return 1;
         return this.sym.compareTo(var.sym);
     }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import static com.aleovas.mathlib.MiscFunctions.*;
 public class Equation {
+    //The equation class is just two expressions on either side of the = sign.
+    //This class might be expanded to solve equations in a later update
     Expression[] expressions=new Expression[2];
     public int id;
     static int eID;
