@@ -1,1 +1,2 @@
 # MathLib
+This is simple library that uses regular expressions in order to parse polynomials as a proof-of-concept for the use of regular expressions for parsing restricted patterns of text in a similar vein to natural language processing. This library also provides certain functions for basic manipulation of polynomials (i.e. addition, subtraction, multiplication, division, and factorising) and also currently provides rudimentary support for parsing more complex mathematical expressions
