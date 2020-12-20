@@ -127,6 +127,28 @@ public class Polynomial implements Comparable<Polynomial>{
             ArrayList<Double> temp1=MiscFunctions.getFactors(d);
             ArrayList<Double> temp2=MiscFunctions.getFactors(terms.get(0).coef);
             for(double x1:temp1)for(double x2:temp2)if(!l.contains(x1/x2))l.add(x1/x2);
+            if(getDegree()==2){
+                //Special case for the quadratic formula
+                double a=0, b=0, c=0;
+                boolean brk=false;
+                for(Term t: terms){
+                    if(!isInteger(t.getDegree())){
+                        //If one of the terms has a fractional degree or a degree below zero then break;
+                        brk=true;
+                        break;
+                    }
+                    switch ((int) t.getDegree()){
+                        case 0: c=t.coef;break;
+                        case 1: b=t.coef;break;
+                        case 2: a=t.coef;break;
+                    }
+                }
+                double det = Math.sqrt(b * b - 4 * a * c);
+                if(det>=0&&!brk){
+                    double x1=(-b+det)/2*a;
+                    double x2=(-b-det)/2*a;
+                }
+            }
         }else l.add(0d);
         for(double d:l)if(!lClean.contains(d))lClean.add(d);
         return lClean;
