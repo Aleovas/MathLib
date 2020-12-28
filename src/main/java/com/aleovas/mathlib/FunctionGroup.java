@@ -17,7 +17,7 @@ public class FunctionGroup implements Comparable<FunctionGroup>{
     static int fgID;
     //Currently provides preliminary support for single level trigonometric functions and logarithims
     //Future updates might provide further functions and the possibility for nesting functions.
-    Pattern regFunction = Pattern.compile("((\\/?(sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^[0-9\\.\\+\\-]+)?\\([a-zA-Z0-9\\^\\-\\+\\.]*\\)))|(\\/?\\([a-zA-Z0-9\\^\\-\\+\\.]*\\)(\\^[0-9\\.\\+\\-]+)?)|\\/[a-zA-Z0-9\\.]+(\\^[0-9\\.\\+\\-]+)?");
+    Pattern regFunction = Pattern.compile("((\\/?(sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^[0-9\\.\\+\\-]+)?\\([*a-zA-Z0-9\\^\\-\\+\\.]*\\)))|(\\/?\\([*a-zA-Z0-9\\^\\-\\+\\.]*\\)(\\^[0-9\\.\\+\\-]+)?)|\\/[*a-zA-Z0-9\\.]+(\\^[0-9\\.\\+\\-]+)?");
     Pattern regCoef = Pattern.compile("\\^?([0-9\\.\\-\\+]+)(?=(sin|cos|tan|log|int|abs|sec|ctn|csc|\\/|\\())");
 
     public FunctionGroup(String s) {

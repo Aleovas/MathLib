@@ -15,7 +15,7 @@ class Term implements Comparable<Term>{
 
     //Regular expression patterns used to extract variables and the coefficient of a string (usually passed from Polynomial)
     //The matched variables are passed into the constructor of the Var class to make new Var objects
-    private Pattern regCoef=Pattern.compile("(?<!\\^)(((\\+|\\-)?[0-9.]+)|(\\+|\\-))");
+    private Pattern regCoef=Pattern.compile("(?<!\\^)(((\\+|\\-)?[0-9.*]+)|(\\+|\\-))");
     private Pattern regVar=singleCharVariable?Pattern.compile("[A-Za-z](\\^(-)?\\d+(\\.\\d+)?)?"):Pattern.compile("[A-Za-z]+(\\^(-)?\\d+(\\.\\d+)?)?");
     public int id; //id is used for comparison during manipulation of Terms to prevent recursion
     private static int termID; //termID is incremented every time a new term is created to keep track of term

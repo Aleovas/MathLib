@@ -15,7 +15,7 @@ public class Expression {
     public int id;
     static int expID;
     //Pattern regExp=Pattern.compile("((\\/?(\\-|\\+)?(\\/?(((sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^(\\+|\\-)?\\d(\\.\\d)?)?)(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))+|(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))(\\^(\\+|\\-)?\\d(\\.\\d)?)?)+)+))|([a-zA-Z0-9\\-\\+\\>\\^\\.]+(?!\\)))((\\/?(\\-|\\+)?(\\/?(((sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^(\\+|\\-)?\\d(\\.\\d)?)?)(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))+|(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))(\\^(\\+|\\-)?\\d(\\.\\d)?)?)+)+))?");
-    Pattern regExp=Pattern.compile("^((?!((\\+|\\-)?[a-z0-9\\.]*)?(sin|cos|tan|log|int|abs|sec|ctn|csc|\\()).)+|(((\\/?(\\-|\\+)?(\\/?(((sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^(\\+|\\-)?\\d(\\.\\d)?)?)(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))([a-z]*)+|(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))(\\^(\\+|\\-)?\\d(\\.\\d)?)?)+)+))|([a-zA-Z0-9\\-\\+\\>\\^\\.]+(?!\\)))((\\/?(\\-|\\+)?(\\/?(((sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^(\\+|\\-)?\\d(\\.\\d)?)?)(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))+|(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))(\\^(\\+|\\-)?\\d(\\.\\d)?)?)+)+))?)");
+    Pattern regExp=Pattern.compile("^((?!((\\+|\\-)?[a-z0-9\\.]*)?(sin|cos|tan|log|int|abs|sec|ctn|csc|\\()).)+|(((\\/?(\\-|\\+)?(\\/?(((sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^(\\+|\\-)?\\d(\\.\\d)?)?)(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))([a-z]*)+|(\\([a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))(\\^(\\+|\\-)?\\d(\\.\\d)?)?)+)+))|([\\*a-zA-Z0-9\\-\\+\\>\\^\\.]+(?!\\)))((\\/?(\\-|\\+)?(\\/?(((sin|cos|tan|log|int|abs|sec|ctn|csc)(\\^(\\+|\\-)?\\d(\\.\\d)?)?)(\\([\\*a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))+|(\\([\\*a-zA-Z0-9\\-\\+\\>\\^\\.]*\\))(\\^(\\+|\\-)?\\d(\\.\\d)?)?)+)+))?)");
     public Expression(String s){
         while(s.contains(" "))s=s.replace(" ","");
         while(s.contains("-+"))s=s.replace("-+","-");
@@ -73,7 +73,7 @@ public class Expression {
                     notFound=false;
                 }
             }
-            if(notFound)temp.add(t);
+            if(notFound&&!(t.isConstant()&&t.getPolynomial().equals(zeroPolynomial)))temp.add(t);
         }
         groups.clear();
         for(FunctionGroup t:temp)groups.add(t);

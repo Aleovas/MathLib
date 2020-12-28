@@ -25,7 +25,7 @@ public class Function implements Comparable<Function>{
     int clean=0;
 
     //Patterns used for matching the various part of a "function"
-    Pattern regPolynomial=Pattern.compile("(([A-Za-z0-9\\.\\+\\-\\^]+)(?=\\)))|(^(?!(sin|cos|log|tan|int|abs|sec|ctn|csc))([A-Za-z0-9\\.\\+\\-\\^]+)$)",Pattern.CASE_INSENSITIVE);
+    Pattern regPolynomial=Pattern.compile("(([*A-Za-z0-9\\.\\+\\-\\^]+)(?=\\)))|(^(?!(sin|cos|log|tan|int|abs|sec|ctn|csc))([*A-Za-z0-9\\.\\+\\-\\^]+)$)",Pattern.CASE_INSENSITIVE);
     Pattern regExp=Pattern.compile("(?<=(sin|cos|tan|log|int|abs|sec|ctn|csc|\\))\\^)(\\+|\\-)?(([0-9]+(\\.[0-9]+)?)|(\\.[0-9]+))",Pattern.CASE_INSENSITIVE);
     Pattern regType=Pattern.compile("(sin|cos|tan|log|int|abs|sec|ctn|csc)",Pattern.CASE_INSENSITIVE);
     public Function(Polynomial polynomial){

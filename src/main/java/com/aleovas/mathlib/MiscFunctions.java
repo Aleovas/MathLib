@@ -1,6 +1,9 @@
 package com.aleovas.mathlib;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static java.lang.Math.sqrt;
 
 public class MiscFunctions {
@@ -49,9 +52,21 @@ public class MiscFunctions {
             case "+":return 1;
             case "":return 1;
             case "-":return -1;
-            default:return Double.parseDouble(str);
+            default:
+                if(str.contains("*"))return evaluateMultiplication(str);
+                return Double.parseDouble(str);
         }
     }
+
+    private static double evaluateMultiplication(String str) {
+        Pattern regTerm=Pattern.compile("[+-]?(([0-9.]*([A-Za-z]+(\\^(-)?\\d+(\\.\\d+)?)?)+)|([0-9.]+))");
+        while(str.contains("**"))str=str.replace("**","*");
+        double d=1;
+        Matcher matcher=regTerm.matcher(str);
+        while(matcher.find())d*=getNumber(str.substring(matcher.start(),matcher.end()));
+        return d;
+    }
+
     public static String doubleToHumanReadableString(double d){
         //Converts doubles to a more human-readable string by comparing double to common values
         //which have a unicode character.

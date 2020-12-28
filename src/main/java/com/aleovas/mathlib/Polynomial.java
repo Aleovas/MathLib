@@ -12,7 +12,7 @@ public class Polynomial implements Comparable<Polynomial>{
     //This regex pattern matches terms in a polynomial and passes the string of each term into the
     //constructor of the Term class to make a new Term object. Thus the process of constructing
     //a polynomial can be thought of as a series of abstractions from Polynomial → Term → Variable.
-    private Pattern regTerm=Pattern.compile("[+-]?(([0-9.]*([A-Za-z*]+(\\^(-)?\\d+(\\.\\d+)?)?)+)|([0-9.]+))");
+    private Pattern regTerm=Pattern.compile("([+-]?((\\*+[+-]?)?(([0-9.]*([A-Za-z]+(\\^(-)?\\d+(\\.\\d+)?)?)+)|([0-9.]+)))+)");
     public int id; // Polynomial ID is currently only used for debug purposes. Might have some further use in the future
     private static int polyID; //This is incremented every time a new polynomial is created and is used to create polynomial IDs
 
@@ -132,7 +132,7 @@ public class Polynomial implements Comparable<Polynomial>{
                 double a=0, b=0, c=0;
                 boolean brk=false;
                 for(Term t: terms){
-                    if(!isInteger(t.getDegree())){
+                    if(!isInteger(t.getDegree())||t.getDegree()<0){
                         //If one of the terms has a fractional degree or a degree below zero then break;
                         brk=true;
                         break;
@@ -146,7 +146,9 @@ public class Polynomial implements Comparable<Polynomial>{
                 double det = Math.sqrt(b * b - 4 * a * c);
                 if(det>=0&&!brk){
                     double x1=(-b+det)/2*a;
+                    if(!l.contains(x1))l.add(x1);
                     double x2=(-b-det)/2*a;
+                    if(!l.contains(x2))l.add(x2);
                 }
             }
         }else l.add(0d);
@@ -282,7 +284,7 @@ public class Polynomial implements Comparable<Polynomial>{
                         break; //There was a break here, but I don't know if it is needed
                     }
                     if(oldTemp.toString().equals(temp.toString())||temp.getDegree()<1){
-                        list.add(temp);
+                        if(!temp.equals(onePolynomial))list.add(temp);
                         break;
                     }
                 }
